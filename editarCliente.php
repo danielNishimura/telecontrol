@@ -1,40 +1,40 @@
 <?php require 'pages/header.php'; ?>
 <?php
-require_once 'classes/cliente.class.php';
-$c = new Cliente();
-if(isset($_POST['cpf']) && !empty($_POST['cpf'])){
-  $cpf = addslashes($_POST['cpf']);
-  $nome = addslashes($_POST['nome']);
-  $endereco = addslashes($_POST['endereco']);
-  $numero = addslashes($_POST['numero']);
+  require 'config.php';
+  $edit = [];
 
-  $c->editCliente($_GET['cpf'], $nome, $endereco, $numero)
+  $cpf = filter_input(INPUT_GET, 'cpf');
+  if ($cpf) {
 
-  ?>
-  <div class="alert alert-sucess">
-    Cliente editado com sucesso!
-  </div>
-  <?php
-}
+    $sql = $pdo->prepare("SELECT * FROM cliente WHERE cpf = :cpf");
+    $sql->bindValue(':cpf', $cpf);
+    $sql->execute();
 
-if(isset($_GET['cpf']) && !empty($_GET['cpf'])) {
-  $edit = $c->getCliente($_GET['cpf']);
+    if ($sql->rowCount() > 0) {
 
-} else {
-  header("Location: editCliente.php");
-}
-?>
+      $edit = $sql->fetch(PDO::FETCH_ASSOC);
+
+    } else {
+      header("Location: index.php");
+      exit;
+    }
+
+  } else {
+    header("Location: index.php");
+    exit;
+  }
+?> 
 
 <div class="container">
   <h2>Editar Cliente</h2>
 
-  <form method="POST">
+  <form method="POST" action="editarClienteAction.php" >
       
   <fieldset>
     <div class="form-group">
       <legend>Clientes</legend>
-      <label for="cpf">CPF:</label>
-      <input type="text" name="cpf" id="cpf" class="form-control" value="<?php echo $edit['cpf']; ?>" disabled />
+
+      <input type="hidden" name="cpf" id="cpf" class="form-control" value="<?php echo $edit['cpf']; ?>" />
 
       <label for="nome">Nome:</label>
       <input type="text" name="nome" id="nome" class="form-control" value="<?php echo $edit['nome'];?>" />

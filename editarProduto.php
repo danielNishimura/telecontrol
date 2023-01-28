@@ -1,29 +1,48 @@
 <?php require 'pages/header.php'; ?>
-<?php require_once 'config.php'; ?>
-<?
-require_once 'classes/produto.class.php';
-$p = new Produto();
+<?php
+  require 'config.php';
+  $edit = [];
 
-if(isset($_GET['codigo']) && !empty($_GET['codigo'])) {
-  $edit = $p->getProduto($_GET['codigo']);
+  $codigo = filter_input(INPUT_GET, 'codigo');
+  if ($codigo) {
 
-} else {
-  header("Location: editProduto.php");
-}
+    $sql = $pdo->prepare("SELECT * FROM produto WHERE codigo = :codigo");
+    $sql->bindValue(':codigo', $codigo);
+    $sql->execute();
 
-?>
+    if ($sql->rowCount() > 0) {
+
+      $edit = $sql->fetch(PDO::FETCH_ASSOC);
+
+    } else {
+      header("Location: produto.php");
+      exit;
+    }
+
+  } else {
+    header("Location: produto.php");
+    exit;
+  }
+?> 
 
 <div class="container">
   <h2>Editar o Produto</h2>
 
-  <form action="./addProduto.php" method="POST">
+  <form action="./editarProdutoAction.php" method="POST">
       
   <fieldset>
     <div class="form-group">
       <legend>Produto</legend>
+
+      <div class="form-group">
+        <label for="codigo">Código:</label>
+        <input type="text" name="codigo" id="codigo" class="form-control" value="<?echo $edit['codigo']; ?>"/>
+      </div>
+
+
       <div class="form-group">
         <label for="descricao">Descricao:</label>
-        <input type="text" name="descricao" id="descricao" class="form-control" value="<?echo $edit['codigo']; ?>"/>
+        <input type="text" name="descricao" id="descricao" class="form-control" value="<?echo $edit['descricao']; ?>"/>
       </div>
 
       <div class="form-group">

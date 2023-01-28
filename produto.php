@@ -1,10 +1,17 @@
 <?php require 'pages/header.php'; ?>
 
+<?
+require_once 'config.php';
+
+$data = ('SELECT * FROM produto');
+echo($data);
+?>
+
 <div class="container">
 	<link rel="stylesheet" href="" />
   <h2>Cadastrar Novo Produto</h2>
 
-  <form action="./addProduto.php" method="POST">
+  <form action="./adicionarProdutoAction.php" method="POST">
       
   <fieldset>
     <div class="form-group">
@@ -23,7 +30,7 @@
       <div class="form-group">
         <div class="form-check">
           <label class="form-check-label" for="ativo">Ativo:</label>
-          <input class="form-check-input" type="checkbox" name="ativo" id="ativo" onchange="btn_checkBox()"/>
+          <input class="form-check-input" type="checkbox" name="ativo" id="ativo" onchange="btn_checkBox()" />
         </div>
       </div>  
     </div>
@@ -103,7 +110,7 @@ try {
             <td><?=$prod['descricao'];?></td>
             <td><?=$prod['ativo'];?></td>
             <td>
-              <a href="./editProduto.php?codigo=<?=$prod['codigo'];?>" class="btn btn-default">Editar</a>
+              <a href="./editarProduto.php?codigo=<?=$prod['codigo'];?>" class="btn btn-default">Editar</a>
               <a href="./delProduto.php?codigo=<?=$prod['codigo'];?>" onclick="return confirm('Tem certeza que deseja excluir?')" class="btn btn-danger">Excluir</a>
             </td>
           </tr>
