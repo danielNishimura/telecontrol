@@ -30,7 +30,7 @@
                   global $pdo;
             
                   $array = array();
-                  $sql = $pdo->query("SELECT * FROM ordem");
+                  $sql = $pdo->query("SELECT * FROM cliente");
                   $sql->execute();
             
                   if($sql->rowCount() > 0) {

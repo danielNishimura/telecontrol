@@ -1,25 +1,17 @@
 <?php require 'pages/header.php'; ?>
 
-<?
-require_once 'config.php';
-
-$data = ('SELECT * FROM produto');
-echo($data);
-?>
-
 <div class="container">
 	<link rel="stylesheet" href="" />
   <h2>Cadastrar Novo Produto</h2>
 
-  <form action="./adicionarProdutoAction.php" method="POST">
+  <form action="adicionarProdutoAction.php" method="POST">
       
   <fieldset>
     <div class="form-group">
       <legend>Produto</legend>
 
       <div class="form-group">
-        <label for="codigo">Código:</label>
-        <input type="text" name="codigo" id="codigo" class="form-control" />
+        <input type="hidden" name="codigo" id="codigo" class="form-control" />
       </div>
 
       <div class="form-group">
@@ -46,17 +38,9 @@ echo($data);
   </form>
 </div>
 
-  <script>
-    function btn_checkBox() {
-      if (document.getElementById("ativo").checked) {
-        document.getElementById("ativo").value = "1";
-      } else {
-        document.getElementById("ativo").value = "0";
-      }
-    }
-  </script>
 
-
+<body window.onload="checkAtivo()">
+  
 <div class="container">
   
   <?php if (!empty($_GET['msgErro'])) {?>
@@ -98,7 +82,7 @@ try {
       <tr>
         <th scope="col">Codigo</th>
         <th scope="col">Descricao</th>
-        <th scope="col">ativo</th>
+        <th scope="col">Ativo</th>
         <th scope="col">Ações</th>
       </tr>
     </thead>
@@ -108,21 +92,30 @@ try {
         <tr>
             <td><?=$prod['codigo'];?></td>
             <td><?=$prod['descricao'];?></td>
-            <td><?=$prod['ativo'];?></td>
+            <td> <input type="checkbox" name="ativo" id="tcheck"></td>
             <td>
               <a href="./editarProduto.php?codigo=<?=$prod['codigo'];?>" class="btn btn-default">Editar</a>
               <a href="./delProduto.php?codigo=<?=$prod['codigo'];?>" onclick="return confirm('Tem certeza que deseja excluir?')" class="btn btn-danger">Excluir</a>
+              <input type="hidden" id="dcheck" value=<?=$prod['ativo'];?>>
             </td>
           </tr>
       <?php }?>
     </tbody>
   </table>
-
-
 <?php }?>
-
-
 </div>
 
+<script>
+  addEventLis function checkAtivo() {
+    if (dcheck.value == "1") {
+      document.getElementById("tcheck").checked = true
+    } else {
+      document.getElementById("tcheck").checked = false
+    }
+
+    console.log(checkAtivo())
+  }
+</script>
+</body>
 
 <?php require 'pages/footer.php'; ?>

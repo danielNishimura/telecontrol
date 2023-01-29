@@ -1,37 +1,54 @@
 <?php require 'pages/header.php'; ?>
 <?php
-require_once 'classes/ordem.class.php';
-$o = new Ordem();
-$ord = $o->getOrdem($_GET['idordem']);
+  require 'config.php';
+  $edit = [];
 
-if(isset($_GET['idordem']) && !empty($_GET['idordem'])) {
-  $ord = $o->getOrdem($_GET['idordem']);
+  $idordem = filter_input(INPUT_GET, 'idordem');
+  if ($idordem) {
 
-} else {
-  header("Location: editOrdem.php");
-}
+    $sql = $pdo->prepare("SELECT * FROM ordem WHERE idordem = :idordem");
+    $sql->bindValue(':idordem', $idordem);
+    $sql->execute();
+
+    if ($sql->rowCount() > 0) {
+
+      $edit = $sql->fetch(PDO::FETCH_ASSOC);
+      //print_r($edit);
+
+    } else {
+      header("Location: produto.php");
+      exit;
+    }
+
+  } else {
+    header("Location: produto.php");
+    exit;
+  }
 ?>
 
 <div class="container">
   <h2>Editar Ordem de Serviço</h2>
 
-  <form action="./addOrdem.php" method="POST">
+  <form action="./adicionarOrdem.php" method="POST">
       
   <fieldset>
     <div class="form-group">
       <legend>Ordem</legend>
 
       <label for="idordem">Codigo da ordem:</label>
-      <input type="text" name="idordem" id="idordem" class="form-control" value="<?php echo $ord['idordem']; ?>"/>
+      <input type="text" name="idordem" id="idordem" class="form-control" value="<?php echo $edit['idordem']; ?>"/>
 
       <label for="idcliente">Cliente:</label>
-      <input type="text" name="idcliente" id="idcliente" class="form-control" value="<?php echo $ord['idcliente']; ?>" />
+      <input type="text" name="idcliente" id="idcliente" class="form-control" value="<?php echo $edit['idcliente']; ?>" />
 
-      <label for="produto">Produto:</label>
-      <input type="text" name="produto" id="produto" class="form-control" value="<?php echo $ord['produto']; ?>" />
+      <label for="idcliente">Cliente:</label>
+      <input type="text" name="idcliente" id="idcliente" class="form-control" value="<?php echo $edit['nomeCliente']; ?>" />
 
-      <label for="dataAbertura">Data de abertura:</label>
-      <input type="text" name="dataAbertura" id="dataAbertura" class="form-control" value="<?php print_r($ord['dataabertura']);?>"/>
+      <label for="idproduto">Produto:</label>
+      <input type="text" name="idproduto" id="idproduto" class="form-control" value="<?php echo $edit['idproduto']; ?>" />
+
+      <label for="dtAbertura">Data de abertura:</label>
+      <input type="text" name="dtAbertura" id="dtAbertura" class="form-control" value="<?php print_r($edit['dtAbertura']);?>"/>
 
 
     </div>
@@ -99,8 +116,8 @@ try {
         <tr>
             <td><?=$ordem['idordem'];?></td>
             <td><?=$ordem['idcliente'];?></td>
-            <td><?=$ordem['produto'];?></td>
-            <td><?=$ordem['dataabertura'];?></td>
+            <td><?=$ordem['idproduto'];?></td>
+            <td><?=$ordem['dtAbertura'];?></td>
             <td>
               <a href="./delOrdem.php?idordem=<?=$ordem['idordem'];?>" onclick="return confirm('Tem certeza que deseja excluir?')" class="btn btn-danger">Excluir</a>
             </td>

@@ -5,3 +5,5 @@ $lista = [];
 $sql = $pdo->query("SELECT * FROM produto");
 print_r($lista);
 ?>
+
+

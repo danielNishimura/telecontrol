@@ -5,8 +5,8 @@ require_once 'config.php';
 $descricao = filter_input(INPUT_POST, 'descricao');
 $ativo = filter_input(INPUT_POST, 'ativo');
 
-if ($nome) {
-    $sql = $pdo->prepare("INSERT INTO produto (descricao, ativo) VALUES (descricao, ativo)");
+if (!empty($_POST)) {
+    $sql = $pdo->prepare("INSERT INTO produto (descricao, ativo) VALUES (:descricao, :ativo)");
     //$sql->bindValue(':codigo', $codigo);
     $sql->bindValue(':descricao', $descricao);
     $sql->bindValue(':ativo', $ativo);

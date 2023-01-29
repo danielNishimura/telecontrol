@@ -13,6 +13,7 @@
     if ($sql->rowCount() > 0) {
 
       $edit = $sql->fetch(PDO::FETCH_ASSOC);
+      print_r($edit);
 
     } else {
       header("Location: produto.php");
@@ -35,14 +36,13 @@
       <legend>Produto</legend>
 
       <div class="form-group">
-        <label for="codigo">Código:</label>
-        <input type="text" name="codigo" id="codigo" class="form-control" value="<?echo $edit['codigo']; ?>"/>
+        <input type="hidden" name="codigo" id="codigo" class="form-control" value="<?php echo $edit['codigo']; ?>"/>
       </div>
 
 
       <div class="form-group">
         <label for="descricao">Descricao:</label>
-        <input type="text" name="descricao" id="descricao" class="form-control" value="<?echo $edit['descricao']; ?>"/>
+        <input type="text" name="descricao" id="descricao" class="form-control" value="<?php echo $edit['descricao']; ?>"/>
       </div>
 
       <div class="form-group">

@@ -9,7 +9,7 @@
     <div class="form-group">
       <legend>Clientes</legend>
       <label for="cpf">CPF:</label>
-      <input type="text" name="cpf" id="cpf" class="form-control" />
+      <input type="text" name="cpf" id="cpf" class="form-control" onkeypress="$(this).mask('000.000.000-00');"/>
 
       <label for="nome">Nome:</label>
       <input type="text" name="nome" id="nome" class="form-control" />
@@ -94,12 +94,9 @@ try {
       <?php }?>
     </tbody>
   </table>
-
-
 <?php }?>
 
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
 </div>
-
-
 <?php require 'pages/footer.php'; ?>

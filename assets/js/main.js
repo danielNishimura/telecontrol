@@ -38,3 +38,4 @@ function aptAlimentos() {
     }
     console.log('aptidao manipular alimentos');
 }
+
