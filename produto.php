@@ -92,7 +92,7 @@ try {
         <tr>
             <td><?=$prod['codigo'];?></td>
             <td><?=$prod['descricao'];?></td>
-            <td> <input type="checkbox" name="ativo" id="tcheck"></td>
+            <td> <input type="checkbox" name="ativo" id="ativo" value="1" <?php echo ($prod['ativo'] == '1') ? "checked" : '';?>></td>
             <td>
               <a href="./editarProduto.php?codigo=<?=$prod['codigo'];?>" class="btn btn-default">Editar</a>
               <a href="./delProduto.php?codigo=<?=$prod['codigo'];?>" onclick="return confirm('Tem certeza que deseja excluir?')" class="btn btn-danger">Excluir</a>

@@ -1,5 +1,6 @@
 <?php
 
+
   class Cliente {
     public function cadastrar($cpf, $nome, $endereco, $numero) {
 

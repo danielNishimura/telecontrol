@@ -48,7 +48,7 @@
       <div class="form-group">
         <div class="form-check">
           <label class="form-check-label" for="ativo">Ativo:</label>
-          <input class="form-check-input" type="checkbox" name="ativo" id="ativo" onchange="btn_checkBox()"/>
+          <input class="form-check-input" type="checkbox" name="ativo" id="ativo" onchange="btn_checkBox()" <?php echo ($edit['ativo'] == '1') ? "checked" : '';?>/>
         </div>
       </div>  
   </fieldset>
@@ -120,7 +120,7 @@
             <tr>
                 <td><?=$prod['codigo'];?></td>
                 <td><?=$prod['descricao'];?></td>
-                <td><?=$prod['ativo'];?></td>
+                <td><input type="checkbox" name="ativo" id="ativo" value="1" <?php echo ($prod['ativo'] == '1') ? "checked" : '';?>></td>
                 <td>
                   <a href="./delProduto.php?codigo=<?=$prod['codigo'];?>" onclick="return confirm('Tem certeza que deseja excluir?')" class="btn btn-danger">Excluir</a>
                 </td>
